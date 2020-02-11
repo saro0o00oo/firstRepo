@@ -1,3 +1,6 @@
+# Disabling warnings
+import warnings
+warnings.simplefilter("ignore")
 ####################numpy###############################################################################################################################################
 import numpy as np # linear algebra
 
@@ -124,14 +127,15 @@ from sklearn.metrics import classification_report, confusion_matrix
 print(classification_report(y_test, logmodel_predict))
 print(confusion_matrix(y_test, logmodel_predict))
 #2
+from sklearn.metrics import accuracy_score
+acc = accuracy_score(y_pred, y_test)
+print(f"{self.model_name()} Model Accuracy: ", acc)
+
+#cross validarion
 from sklearn.model_selection import cross_val_score
 CVS = cross_val_score(self.model, self.X, self.y, scoring='accuracy', cv=cv)
 print(CVS)
 print("="*60, "\nMean accuracy of cross-validation: ", CVS.mean())
-#3
-from sklearn.metrics import accuracy_score
-acc = accuracy_score(y_pred, y_test)
-print(f"{self.model_name()} Model Accuracy: ", acc)
 
 #Logistic Regression
 from sklearn.linear_model import LogisticRegression
