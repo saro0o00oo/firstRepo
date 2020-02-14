@@ -15,6 +15,11 @@ from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
+from sklearn.naive_bayes import GaussianNB
+from xgboost import XGBClassifier
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Activation, Dropout
 from Helper.ML_Helper import MlHelper
 
 def predict_age(row_age_pclass):
@@ -107,6 +112,34 @@ if __name__ == "__main__":
         output = pd.DataFrame({'PassengerId': test_df.PassengerId, 'Survived': y_test_final})
         output.to_csv('Titanic_SVC.csv', index=False)
         print("CSV was successfully saved!")
+
+        #GaussianNB 76.076%
+        ml_model = GaussianNB()
+        ml_model = MlHelper(ml_model, X, y, X_test_final)
+        ml_model.train_and_evaluate_with_splitted_data()
+        ml_model.train_and_evaluate_with_cross_validation()
+
+        ml_model_test = GaussianNB()
+        ml_model_test = MlHelper(ml_model_test, X, y, X_test_final)
+        y_test_final = ml_model_test.train_and_predict_with_whole_data()
+        output = pd.DataFrame({'PassengerId': test_df.PassengerId, 'Survived': y_test_final})
+        output.to_csv('Titanic_GaussianNB.csv', index=False)
+        print("CSV was successfully saved!")
+        
+        #XGBClassifier 76.555%
+        ml_model = XGBClassifier()
+        ml_model = MlHelper(ml_model, X, y, X_test_final)
+        ml_model.train_and_evaluate_with_splitted_data()
+        ml_model.train_and_evaluate_with_cross_validation()
+
+        ml_model_test = XGBClassifier()
+        ml_model_test = MlHelper(ml_model_test, X, y, X_test_final)
+        y_test_final = ml_model_test.train_and_predict_with_whole_data()
+        output = pd.DataFrame({'PassengerId': test_df.PassengerId, 'Survived': y_test_final})
+        output.to_csv('Titanic_XGBClassifier.csv', index=False)
+        print("CSV was successfully saved!")
+        
+        #Nueral Network %
 
 
       
