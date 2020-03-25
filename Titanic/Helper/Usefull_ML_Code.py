@@ -12,6 +12,7 @@ import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 train_df = pd.read_csv("/kaggle/input/titanic/train.csv")
 test_df = pd.read_csv("/kaggle/input/titanic/test.csv")
 train_df.head()
+train_df.describe()
 train_df.info()
 
 #columns with "object" data type must convert to numbers.
