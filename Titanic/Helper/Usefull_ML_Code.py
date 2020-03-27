@@ -108,6 +108,16 @@ from sklearn.impute import SimpleImputer
 imputer = SimpleImputer(np.nan, "mean")
 train_df['Age'] = imputer.fit_transform(np.array(train_df['Age']).reshape(891, 1))
 
+# Imputation
+my_imputer = SimpleImputer()
+imputed_X_train = pd.DataFrame(my_imputer.fit_transform(X_train))
+imputed_X_valid = pd.DataFrame(my_imputer.transform(X_valid))
+
+# Imputation removed column names; put them back
+imputed_X_train.columns = X_train.columns
+imputed_X_valid.columns = X_valid.columns
+
+
 #columns with "object" data type must convert to numbers.
 objects_cols = train_df.select_dtypes("object").columns
 #Encode target labels with value between 0 and (n_classes - 1)
