@@ -35,7 +35,7 @@ train_df = train_df.dropna()
 
 #fillna: We can also propagate non-null values forward or backward.
 #ffill: propagate[s] last valid observation forward to next valid
-train_df.Embarked.fillna(method='ffill', inplace=True)
+train_df.fillna(method='ffill', inplace=True)
 
 #correlation: if the correlation of 2 features are too high it means it is redundant
 train_df.corr()
